@@ -239,46 +239,47 @@ button{
 </div>
 
 </div>
-
 <script>
-const yesBtn = document.getElementById("yes");
-const noBtn  = document.getElementById("no");
-const askBox = document.getElementById("ask");
-const successBox = document.getElementById("success");
-// ===== READ DATA FROM URL =====
-const params = new URLSearchParams(window.location.search);
-const personNameParam = params.get("to");
-const customMsgParam = params.get("msg");
+document.addEventListener("DOMContentLoaded", () => {
 
-// decode
-const personName = personNameParam ? decodeURIComponent(personNameParam) : "Beautiful";
-const customMessage = customMsgParam ? decodeURIComponent(customMsgParam) : "";
+    /* ===== ELEMENTS ===== */
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const askBox = document.getElementById("ask");
+    const successBox = document.getElementById("success");
+    const msg = document.getElementById("msg");
+    const wrap = document.getElementById("wrap");
+    const card = document.getElementById("card");
+    const thankyou = document.getElementById("thankyou");
+    const nextBtn = document.getElementById("next");
+    const wrapper = document.getElementById("shayariWrapper");
 
-// inject name
-document.getElementById("personName").textContent = personName;
-/* FLOATING HEARTS */
-setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="float-heart";
-    h.textContent=["❤️","💖","💕","💗"][Math.floor(Math.random()*4)];
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(Math.random()*6+6)+"s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),12000);
-},900);
+    /* ===== URL DATA ===== */
+    const params = new URLSearchParams(window.location.search);
+    const personName = params.get("to") ? decodeURIComponent(params.get("to")) : "Beautiful";
+    const customMessage = params.get("msg") ? decodeURIComponent(params.get("msg")) : "";
 
-/* THANK YOU QUOTES */
-const thankQuotes=[
-"Thank you for choosing me ❤️ You made this Valentine unforgettable.",
-"Thank you for saying YES 💖 I’ll always cherish this moment.",
-"Thank you for trusting me with your heart 🥺❤️",
-"Thank you for making my heart smile today 💕",
-"Thank you for turning this question into a beautiful memory 💖",
-"Thank you… with you, this Valentine feels perfect ❤️"
-];
+    const nameSpan = document.getElementById("personName");
+    if (nameSpan) nameSpan.textContent = personName;
 
-/* SHAYARI */
-const shayariList=[
+    const customBox = document.getElementById("customMsgBox");
+    if (customBox && customMessage) {
+        customBox.textContent = customMessage;
+        customBox.style.display = "block";
+    }
+
+    /* ===== THANK YOU QUOTES ===== */
+    const thankQuotes = [
+        "Thank you for choosing me ❤️ You made this Valentine unforgettable.",
+        "Thank you for saying YES 💖 I’ll always cherish this moment.",
+        "Thank you for trusting me with your heart 🥺❤️",
+        "Thank you for making my heart smile today 💕",
+        "Thank you for turning this question into a beautiful memory 💖",
+        "Thank you… with you, this Valentine feels perfect ❤️"
+    ];
+
+    /* ===== SHAYARI ===== */
+    const shayariList=[
 `Tere Sine Se Lagkar Teri Aarjoo Ban Jaun<br>Teri Sanso Se Milkar Teri Khushbu Ban Jaun<br>Fasle Na Rahe Koi Hum Dono Ke Darmiyaan<br>Main, Main Na Rahu Bus “Tum” Ban Jaaun…!!`,
 `Ruth Jao Kitna Bhi Mana Lenge,<br>Dur Jao Kitna Bhi Bula Lenge<br>Dil Aakhir Dil Hai Sagar Ki Ret To Nhi<br>Ki Naam Likh Kar Usse Mita Denge..!`,
 `Kyu Tujhiko Dekhna Chahti H Meri Aankhe<br>Kyu Khamoshiya Krti Hai Bs Teri Baatein,<br>Kyu Itna Chahane Laga Hoon Tujhko Main<br>Ki Taare Ginte Huye Kat-Ti Hai Meri Raatein`,
@@ -297,40 +298,48 @@ const shayariList=[
 'Tere Chehre Me Mera Noor Hoga<br>Fir Tu Na Kabhi Muzse Dur Hoga<br>Soch Kya Khusi Milegi Jaan Us Pal<br>Jis Pal Teri Maang Me Mere Naam Ka Sindoor Hoga',
 ];
 
-let index=0;
-const wrapper=document.getElementById("shayariWrapper");
+    let index = 0;
 
-function showShayari(){
-    const old=wrapper.querySelector(".shayari");
-    if(old){
-        old.classList.add("exit-left");
-        setTimeout(()=>old.remove(),600);
+    function showShayari() {
+        const old = wrapper.querySelector(".shayari");
+        if (old) {
+            old.classList.add("exit-left");
+            setTimeout(() => old.remove(), 600);
+        }
+
+        const div = document.createElement("div");
+        div.className = "shayari enter-right";
+        div.innerHTML = shayariList[index];
+        wrapper.appendChild(div);
     }
-    const div=document.createElement("div");
-    div.className="shayari enter-right";
-    div.innerHTML=shayariList[index];
-    wrapper.appendChild(div);
-}
 
-yesBtn.addEventListener("click", () => {
-    askBox.style.display = "none";
-    successBox.style.display = "block";
+    /* ===== EVENTS ===== */
 
-    // random thank you
-    thankyou.textContent =
-        thankQuotes[Math.floor(Math.random()*thankQuotes.length)];
+    yesBtn.addEventListener("click", () => {
+        askBox.style.display = "none";
+        successBox.style.display = "block";
 
-    // show first shayari
-    showShayari();
+        thankyou.textContent =
+            thankQuotes[Math.floor(Math.random() * thankQuotes.length)];
 
-    // card glow animation
-    card.classList.add("active");
-    setTimeout(() => card.classList.remove("active"), 600);
-});
+        index = 0;
+        showShayari();
 
-noBtn.addEventListener("click", () => {
-    msg.textContent = "Think once more 😢";
-    noBtn.style.left = Math.random() * (wrap.offsetWidth - 100) + "px";
+        card.classList.add("active");
+        setTimeout(() => card.classList.remove("active"), 600);
+    });
+
+    noBtn.addEventListener("click", () => {
+        msg.textContent = "Think once more 😢";
+        noBtn.style.left =
+            Math.random() * (wrap.offsetWidth - 100) + "px";
+    });
+
+    nextBtn.addEventListener("click", () => {
+        index = (index + 1) % shayariList.length;
+        showShayari();
+    });
+
 });
 </script>
 
