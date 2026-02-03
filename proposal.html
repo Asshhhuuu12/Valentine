@@ -241,6 +241,10 @@ button{
 </div>
 
 <script>
+const yesBtn = document.getElementById("yes");
+const noBtn  = document.getElementById("no");
+const askBox = document.getElementById("ask");
+const successBox = document.getElementById("success");
 // ===== READ DATA FROM URL =====
 const params = new URLSearchParams(window.location.search);
 const personNameParam = params.get("to");
@@ -308,29 +312,26 @@ function showShayari(){
     wrapper.appendChild(div);
 }
 
-yes.onclick=()=>{
-    // show custom message if exists
-const customBox = document.getElementById("customMsgBox");
-if(customMessage){
-    customBox.textContent = customMessage;
-    customBox.style.display = "block";
-}
-    ask.style.display="none";
-    success.style.display="block";
+yesBtn.addEventListener("click", () => {
+    askBox.style.display = "none";
+    successBox.style.display = "block";
+
+    // random thank you
+    thankyou.textContent =
+        thankQuotes[Math.floor(Math.random()*thankQuotes.length)];
+
+    // show first shayari
+    showShayari();
+
+    // card glow animation
     card.classList.add("active");
-    thankyou.textContent=thankQuotes[Math.floor(Math.random()*thankQuotes.length)];
-    showShayari();
-};
+    setTimeout(() => card.classList.remove("active"), 600);
+});
 
-next.onclick=()=>{
-    index=(index+1)%shayariList.length;
-    showShayari();
-};
-
-no.onclick=()=>{
-    msg.textContent="Think once more 😢";
-    no.style.left=Math.random()*(wrap.offsetWidth-100)+"px";
-};
+noBtn.addEventListener("click", () => {
+    msg.textContent = "Think once more 😢";
+    noBtn.style.left = Math.random() * (wrap.offsetWidth - 100) + "px";
+});
 </script>
 
 </body>
