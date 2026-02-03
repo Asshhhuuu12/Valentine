@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message For You 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .message-container {
+            background: white;
+            border-radius: 25px;
+            padding: 60px 50px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 20px solid transparent;
+            border-image: linear-gradient(45deg, #f44336, #e91e63, #9c27b0) 1;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            color: #d32f2f;
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .heart-pulse {
+            color: #f44336;
+            font-size: 5rem;
+            margin: 30px 0;
+            animation: heartbeat 1.2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        .recipient-box {
+            background: linear-gradient(135deg, #fff5f7, #ffeef1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 3px solid #ffcdd2;
+        }
+        
+        .to-label {
+            font-size: 1.5rem;
+            color: #e91e63;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .recipient-name {
+            color: #d32f2f;
+            font-size: 3.2rem;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+        
+        .message-box {
+            background: #f9f9f9;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border-left: 8px solid #f44336;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        .message-content {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            color: #555;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Georgia', serif;
+        }
+        
+        .message-icon {
+            position: absolute;
+            top: -25px;
+            right: 30px;
+            background: #f44336;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+        
+        .message-info {
+            font-size: 1rem;
+            color: #888;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        .signature {
+            font-size: 1.5rem;
+            color: #777;
+            margin-top: 50px;
+            font-style: italic;
+            padding-top: 20px;
+            border-top: 2px dashed #ffcdd2;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(46, 125, 50, 0.4);
+        }
+        
+        .footer-note {
+            margin-top: 30px;
+            color: #999;
+            font-size: 1rem;
+        }
+        
+        .loading-container {
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #f44336;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-container {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .error-icon {
+            font-size: 4rem;
+            color: #f44336;
+            margin-bottom: 20px;
+        }
+        
+        .error-title {
+            color: #d32f2f;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .error-message {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .message-container {
+                padding: 30px 20px;
+                border-width: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .recipient-name {
+                font-size: 2.5rem;
+            }
+            
+            .message-content {
+                font-size: 1.4rem;
+            }
+            
+            .message-box {
+                padding: 25px;
+            }
+            
+            .heart-pulse {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Floating hearts in background */
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            z-index: 1;
+            animation: float 15s infinite linear;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div id="floatingHearts"></div>
+    
+    <!-- Main content -->
+    <div class="message-container">
+        <h1>A Special Message 💝</h1>
+        
+        <div class="heart-pulse">♥</div>
+        
+        <div id="contentArea">
+            <!-- Content will be loaded here -->
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <h3>Loading your special message...</h3>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-button">Create Your Own Special Message</a>
+        
+        <div class="footer-note">Made with ❤️ using Make it Special</div>
+    </div>
+    
+    <script>
+        // ============ SUPABASE CONFIGURATION ============
+        // MUST match the values in script.js!
+        const SUPABASE_URL = 'https://llluxktkpputnyrqltwp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsbHV4a3RrcHB1dG55cnFsdHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMjYwNTEsImV4cCI6MjA4NTcwMjA1MX0.c4TfxOAYg1NxYm4cTrtYj_9lsZTbXHhjTQUupM8vUFk';
+        
+        // Get message ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const messageId = urlParams.get('id');
+        const toParam = urlParams.get('to');
+        const msgParam = urlParams.get('msg');
+        
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartSymbols = ['💖', '💝', '💕', '💗', '💓', '💞', '♥', '❤️'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                // Random properties
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                heart.style.color = getRandomColor();
+                heart.style.animationDelay = (Math.random() * 10) + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        function getRandomColor() {
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#2196F3', '#03A9F4'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Load message from Supabase
+        async function loadMessage() {
+            const contentArea = document.getElementById('contentArea');
+            
+            // Check if it's a direct URL parameter link (fallback mode)
+            if (toParam) {
+                displayMessage({
+                    to: decodeURIComponent(toParam),
+                    message: msgParam ? decodeURIComponent(msgParam) : 'You are special! 💝',
+                    created_at: new Date().toISOString()
+                });
+                createFloatingHearts();
+                return;
+            }
+            
+            // If no message ID, show error
+            if (!messageId) {
+                showError('No message found in the URL.');
+                return;
+            }
+            
+            try {
+                // Fetch message from Supabase
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/valentine_messages?id=eq.${messageId}`,
+                    {
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    }
+                );
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const messages = await response.json();
+                
+                if (messages && messages.length > 0) {
+                    const messageData = messages[0];
+                    
+                    // Update view count
+                    const newViewCount = (messageData.views || 0) + 1;
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/valentine_messages?id=eq.${messageId}`,
+                        {
+                            method: 'PATCH',
+                            headers: {
+                                'apikey': SUPABASE_KEY,
+                                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=minimal'
+                            },
+                            body: JSON.stringify({ views: newViewCount })
+                        }
+                    );
+                    
+                    displayMessage(messageData);
+                    createFloatingHearts();
+                    
+                } else {
+                    // Check localStorage as fallback
+                    const localMessages = JSON.parse(localStorage.getItem('valentineMessages') || '{}');
+                    if (localMessages[messageId]) {
+                        displayMessage(localMessages[messageId]);
+                        createFloatingHearts();
+                    } else {
+                        showError('Message not found. It may have expired or been deleted.');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error loading message:', error);
+                
+                // Fallback 1: Check localStorage
+                const localMessages = JSON.parse(localStorage.getItem('valentineMessages') || '{}');
+                if (localMessages[messageId]) {
+                    displayMessage(localMessages[messageId]);
+                    createFloatingHearts();
+                } else {
+                    // Fallback 2: Show error with instructions
+                    showError(`
+                        Could not load the message. Possible reasons:<br><br>
+                        1. The link was copied incorrectly<br>
+                        2. The message has expired<br>
+                        3. You're offline or having connection issues<br><br>
+                        <strong>Tip:</strong> Ask the sender to generate a new link.
+                    `);
+                }
+            }
+        }
+        
+        function displayMessage(data) {
+            const contentArea = document.getElementById('contentArea');
+            
+            // Format date
+            const createdDate = data.created_at ? new Date(data.created_at) : new Date();
+            const formattedDate = createdDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            contentArea.innerHTML = `
+                <div class="recipient-box">
+                    <div class="to-label">To:</div>
+                    <div class="recipient-name">${escapeHtml(data.to)}</div>
+                </div>
+                
+                <div class="message-box">
+                    <div class="message-icon">💌</div>
+                    <div class="message-content">${escapeHtml(data.message)}</div>
+                    <div class="message-info">
+                        Created on ${formattedDate}
+                        ${data.views ? `• Viewed ${data.views} time${data.views > 1 ? 's' : ''}` : ''}
+                    </div>
+                </div>
+                
+                <div class="signature">
+                    Made with ❤️ using Make it Special
+                </div>
+            `;
+            
+            // Update page title
+            document.title = `For ${data.to} 💝 | Special Message`;
+        }
+        
+        function showError(message) {
+            const contentArea = document.getElementById('contentArea');
+            
+            contentArea.innerHTML = `
+                <div class="error-container">
+                    <div class="error-icon">💔</div>
+                    <h2 class="error-title">Message Not Found</h2>
+                    <div class="error-message">
+                        ${message}
+                    </div>
+                    <a href="index.html" class="back-button">Create New Message</a>
+                </div>
+            `;
+        }
+        
+        // Simple HTML escape to prevent XSS
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Load message when page is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadMessage);
+        } else {
+            loadMessage();
+        }
+    </script>
+</body>
+</html>
