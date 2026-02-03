@@ -183,6 +183,17 @@ button{
     transition:.3s;
 }
 .footer a:hover{transform:scale(1.25)}
+.custom-msg{
+    margin:10px 0 14px;
+    padding:12px 16px;
+    border-radius:14px;
+    background:rgba(255, 42, 109, 0.08);
+    color:#444;
+    font-size:1.05rem;
+    line-height:1.5;
+    display:none;
+    animation:fadeUp .6s ease;
+}
 </style>
 </head>
 
@@ -195,7 +206,7 @@ button{
 
 <div id="ask">
     <div class="question">
-        Hey <span class="name">Beautiful</span>, will you be my Valentine?
+        Hey <span class="name" id="personName">Beautiful</span>, will you be my Valentine?
     </div>
 
     <div class="buttons" id="wrap">
@@ -209,6 +220,8 @@ button{
 <div class="success" id="success">
     <h2>She Said YES 💖</h2>
     <div class="thankyou" id="thankyou"></div>
+
+    <div class="custom-msg" id="customMsgBox"></div>
 
     <div class="shayari-box">
         <div class="shayari-wrapper" id="shayariWrapper"></div>
@@ -228,6 +241,17 @@ button{
 </div>
 
 <script>
+// ===== READ DATA FROM URL =====
+const params = new URLSearchParams(window.location.search);
+const personNameParam = params.get("to");
+const customMsgParam = params.get("msg");
+
+// decode
+const personName = personNameParam ? decodeURIComponent(personNameParam) : "Beautiful";
+const customMessage = customMsgParam ? decodeURIComponent(customMsgParam) : "";
+
+// inject name
+document.getElementById("personName").textContent = personName;
 /* FLOATING HEARTS */
 setInterval(()=>{
     const h=document.createElement("div");
@@ -255,6 +279,18 @@ const shayariList=[
 `Ruth Jao Kitna Bhi Mana Lenge,<br>Dur Jao Kitna Bhi Bula Lenge<br>Dil Aakhir Dil Hai Sagar Ki Ret To Nhi<br>Ki Naam Likh Kar Usse Mita Denge..!`,
 `Kyu Tujhiko Dekhna Chahti H Meri Aankhe<br>Kyu Khamoshiya Krti Hai Bs Teri Baatein,<br>Kyu Itna Chahane Laga Hoon Tujhko Main<br>Ki Taare Ginte Huye Kat-Ti Hai Meri Raatein`,
 `Agar Bhule Se Kabi Hamari Yaad Aati Ho..<br>Aur Tan Badan Me Ek Siharan Si Daud Jaati Ho..<br>To Mere Sanam Tum Mere Paas Chale Aana..<br>Agar Sooni Sooni Raate Tumhe Bahut Sataati Ho`
+'Jo Kuch Bhi Mila Hai Usi Me Khush Hu..<br>Mai Tere Liye Khuda Se Takraar Nahi Karti..<br>Par Kuch To<br>Baat Hai Teri Fitrat Me Zaalim..<br>Warna Tujhe Chaahne Ki Khata Bar Bar Nahi Karti..!',
+'Parwah Kar Uski Jo Teri Parwah Kare,<br>Zindagi Mein Jo Kabi Na Tanha Kare,<br>Jaan Ban Ke Utar Jaa Uski Ruh Mein,<br>Jo Jaan Se Bhi Jyada Tujhse Wafa Kare.',
+'Sukun Milta Hai Jab Unse Baat Hoti Hai<br>Hazar Raaton Mein Wo Ek Raat Hoti Hai<br>Nigah Uthakar Jab Dekhte Hain Wo Meri Taraf<br>Mere Liye Wohi Pal Poori Kaaynat Hoti Hai.',
+'Dil Ki Hasrat Zuban Pe Aane Lagi<br>Tune Dekha Aur Zindagi Muskurane Lagi<br>Ye Ishq Ki Inteha Thi Ya Deewangi Meri<br>Har Soorat Me Soorat Teri Nazar Aane Lagi.',
+'Lafzon Ki Tarah Mujh Se Kitabon Mein Mila Kar,<br>Duniya Ka Tujhe Darr Hai To Khwabon Me Mila Kar,<br>Sahil Ko Main Chhoo Kar Tujhe Mehsus Karunga,<br>To Mujh Se Lehar Ban Kar Kinaron Pe Mila Kar…',
+'Kuch To Baat Hai Tujme Jo Tujhe Yaad Krne Ko Ji Chahta Hai<br>Kuch Khas Hai Jo Tujhe Bahon Me Bharne Ko Ji Chahta Hai,<br>Hum Tere Kareeb Hai Ya Nhi Ye Jante Nhi Hai Magar Dilbar<br>Fir Bhi Mohabbat Mein Hadd Se Guzarne Ko Ji Chahta Hain.',
+'Raat Ka Andhera Kuch Kehna Chahta Hai<br>Yeh Chand Chandni Ka Sath Rehna Chahta Hai<br>Hum To Tanha Hi Khush The Mager Pata Nahi<br>Kyun Ab Yeh Dil Ab Kisi Ka Sath Rehna Chahta Hai',
+'Hum Hawa Nahi Jo Fizao Me Kho Jaye<br>Waqt Nahi Jo Kuch Pal Me Guzar Jaye<br>Hum Mausam Bhi Nahi Jo Badal Jaye<br>Hum To Aansu Ki Tarah Hai, Jo Khushiyo Me Milne Aaye<br>Aur Gam Mein Bhi Saath Nibhaye.',
+'Do Baante Unse Ki To Dil Ka Dard Kho Gaya,<br>Logo Ne Humse Pucha Ke Tumko Kya Ho Gaya<br>Bekraar Aankho Se Hans Kar Reh Gaye<br>Ye Bhi Na Kah Ske Ki Hme Pyar Ho Gaya.',
+'Mein Yun Miloon Tujhse Ke Tera Libaas Ban Jaaun<br>Tujhe Bana Ke Samandar Aur Khud Pyaas Ban Jaon<br>Aaj Pehloon Mein Mujhe Toot Ke Bikhar Jane Do<br>Kal Ko Shayad Mumkin Nahi Ke Mein Tumko Paon',
+'Mere Wajood Mein Kaash Tu Utar Jaye,<br>Main Dekhu Aaina Or Tu Nazar Aaye,<br>Tu Ho Samne Aur Ye Waqt Thehar Jaye<br>Or Ye Zindagi Tujhe Dekhte Hue Guzar Jaye',
+'Tere Chehre Me Mera Noor Hoga<br>Fir Tu Na Kabhi Muzse Dur Hoga<br>Soch Kya Khusi Milegi Jaan Us Pal<br>Jis Pal Teri Maang Me Mere Naam Ka Sindoor Hoga',
 ];
 
 let index=0;
@@ -273,6 +309,12 @@ function showShayari(){
 }
 
 yes.onclick=()=>{
+    // show custom message if exists
+const customBox = document.getElementById("customMsgBox");
+if(customMessage){
+    customBox.textContent = customMessage;
+    customBox.style.display = "block";
+}
     ask.style.display="none";
     success.style.display="block";
     card.classList.add("active");
