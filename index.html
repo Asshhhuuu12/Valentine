@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make it Special ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="hearts-bg">
+        <div class="heart-bg">❤️</div>
+        <div class="heart-bg">💖</div>
+        <div class="heart-bg">💝</div>
+        <div class="heart-bg">💕</div>
+        <div class="heart-bg">💗</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1><span class="heart-icon">💝</span> Make it Special <span class="heart-icon">💝</span></h1>
+            <p class="subtitle">Create a magical Valentine's proposal</p>
+        </header>
+        
+        <main>
+            <div class="generator-card">
+                <div class="input-group">
+                    <label for="recipientName">
+                        <i class="fas fa-heart"></i> Who is this for?
+                    </label>
+                    <input type="text" id="recipientName" placeholder="Enter their name..." class="input-field">
+                </div>
+                
+                <div class="input-group">
+                    <label for="customMessage">
+                        <i class="fas fa-envelope"></i> Custom Message (Optional)
+                    </label>
+                    <textarea id="customMessage" placeholder="Write a special message or love note..." class="input-field textarea-field"></textarea>
+                </div>
+                
+                <button id="generateBtn" class="btn-primary">
+                    <i class="fas fa-magic"></i> Create Magical Link
+                </button>
+                
+                <div id="resultSection" class="hidden">
+                    <div class="success-header">
+                        <i class="fas fa-sparkles"></i>
+                        <h3>Your magical link is ready! ✨</h3>
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    
+                    <div class="link-container">
+                        <div class="link-display-wrapper">
+                            <input type="text" id="generatedLink" readonly class="link-display">
+                            <button id="copyBtn" class="btn-secondary">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a id="testLink" href="#" target="_blank" class="btn-tertiary">
+                            <i class="fas fa-play-circle"></i> Preview Proposal
+                        </a>
+                        <button id="whatsappBtn" class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                        </button>
+                    </div>
+                    
+                    <div class="instructions">
+                        <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Send this link to your special person. They'll see an interactive Valentine's proposal!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="creator-info">
+                    <p>Created with ❤️ by <strong>Asshhhuuu</strong></p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/shaikh_asif.x" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://github.com/Asshhhuuu12" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                <p class="footer-note">Made for Valentine's Day 2026 💘</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
