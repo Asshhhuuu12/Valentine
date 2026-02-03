@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💝</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(270deg,#ff2a6d,#ff8ec7,#ffffff);
+    background-size:600% 600%;
+    animation:bgMove 14s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:16px;
+    overflow:hidden;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* FLOATING HEARTS */
+.float-heart{
+    position:fixed;
+    bottom:-40px;
+    font-size:20px;
+    animation:floatUp linear infinite;
+    opacity:.35;
+    pointer-events:none;
+}
+@keyframes floatUp{
+    to{transform:translateY(-120vh);opacity:0}
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(14px);
+    padding:24px;
+    border-radius:24px;
+    width:100%;
+    max-width:720px;
+    text-align:center;
+    animation:cardEnter .8s ease;
+}
+@keyframes cardEnter{
+    from{opacity:0;transform:translateY(30px) scale(.95)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.card.active{
+    animation:cardGlow .6s ease;
+}
+@keyframes cardGlow{
+    50%{box-shadow:0 0 40px rgba(255,105,180,.5)}
+}
+
+h1{color:#c2185b;font-size:2.2rem}
+.heart{
+    font-size:3.4rem;
+    margin:8px 0;
+    animation:beat 1.3s infinite;
+}
+@keyframes beat{50%{transform:scale(1.3)}}
+
+.question{color:#333;font-size:1.45rem;margin-bottom:16px}
+.name{color:#c2185b;font-weight:bold}
+
+/* BUTTONS */
+.buttons{position:relative;height:120px}
+button{
+    border:none;border-radius:40px;
+    font-weight:bold;cursor:pointer;
+}
+.yes{
+    padding:12px 30px;font-size:1.15rem;
+    background:linear-gradient(135deg,#4CAF50,#2E7D32);
+    color:white;
+}
+.no{
+    padding:10px 24px;font-size:1rem;
+    background:linear-gradient(135deg,#f44336,#d32f2f);
+    color:white;
+    position:absolute;top:60px;
+}
+
+.msg{color:#555;height:22px;margin-top:6px}
+
+/* SUCCESS */
+.success{display:none;animation:fadeUp .7s ease forwards}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* THANK YOU */
+.thankyou{
+    min-height:64px;
+    margin:10px 0 12px;
+    color:#6a1b9a;
+    font-size:1.1rem;
+    line-height:1.45;
+    animation:thankFade .8s ease;
+}
+@keyframes thankFade{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* SHAYARI BOX */
+.shayari-box{
+    background:rgba(255,255,255,.97);
+    border-radius:16px;
+    padding:12px 16px;
+    overflow:hidden;
+}
+
+.shayari-wrapper{
+    position:relative;
+    min-height:220px;
+}
+
+/* SHAYARI */
+.shayari{
+    position:absolute;
+    width:100%;
+    color:#2b2b2b;
+    font-size:1.05rem;
+    line-height:1.6;
+}
+
+/* SHAYARI ANIMATIONS */
+.enter-right{
+    animation:slideInRight .6s ease forwards;
+}
+.exit-left{
+    animation:slideOutLeft .6s ease forwards;
+}
+
+@keyframes slideInRight{
+    from{transform:translateX(100%);opacity:0}
+    to{transform:translateX(0);opacity:1}
+}
+@keyframes slideOutLeft{
+    from{transform:translateX(0);opacity:1}
+    to{transform:translateX(-100%);opacity:0}
+}
+
+.next-btn{
+    margin-top:14px;
+    padding:8px 28px;
+    border-radius:30px;
+    background:#f06292;
+    color:white;
+    font-size:1rem;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:22px;
+    padding-top:12px;
+    border-top:1px solid rgba(0,0,0,.15);
+    color:#444;
+    font-size:.9rem;
+}
+.footer .icons{
+    margin-top:6px;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+}
+.footer a{
+    color:#c2185b;
+    font-size:1.25rem;
+    transition:.3s;
+}
+.footer a:hover{transform:scale(1.25)}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+<h1>Will You Be My Valentine? 💝</h1>
+<div class="heart">❤️</div>
+
+<div id="ask">
+    <div class="question">
+        Hey <span class="name">Beautiful</span>, will you be my Valentine?
+    </div>
+
+    <div class="buttons" id="wrap">
+        <button class="yes" id="yes">YES 💖</button>
+        <button class="no" id="no">No 😢</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+</div>
+
+<div class="success" id="success">
+    <h2>She Said YES 💖</h2>
+    <div class="thankyou" id="thankyou"></div>
+
+    <div class="shayari-box">
+        <div class="shayari-wrapper" id="shayariWrapper"></div>
+    </div>
+
+    <button class="next-btn" id="next">Next Shayari 💌</button>
+
+    <div class="footer">
+        <div>Created by <strong>Asshhhuuu</strong></div>
+        <div class="icons">
+            <a href="https://www.instagram.com/shaikh_asif.x" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/Asshhhuuu12" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+/* FLOATING HEARTS */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="float-heart";
+    h.textContent=["❤️","💖","💕","💗"][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(Math.random()*6+6)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),12000);
+},900);
+
+/* THANK YOU QUOTES */
+const thankQuotes=[
+"Thank you for choosing me ❤️ You made this Valentine unforgettable.",
+"Thank you for saying YES 💖 I’ll always cherish this moment.",
+"Thank you for trusting me with your heart 🥺❤️",
+"Thank you for making my heart smile today 💕",
+"Thank you for turning this question into a beautiful memory 💖",
+"Thank you… with you, this Valentine feels perfect ❤️"
+];
+
+/* SHAYARI */
+const shayariList=[
+`Tere Sine Se Lagkar Teri Aarjoo Ban Jaun<br>Teri Sanso Se Milkar Teri Khushbu Ban Jaun<br>Fasle Na Rahe Koi Hum Dono Ke Darmiyaan<br>Main, Main Na Rahu Bus “Tum” Ban Jaaun…!!`,
+`Ruth Jao Kitna Bhi Mana Lenge,<br>Dur Jao Kitna Bhi Bula Lenge<br>Dil Aakhir Dil Hai Sagar Ki Ret To Nhi<br>Ki Naam Likh Kar Usse Mita Denge..!`,
+`Kyu Tujhiko Dekhna Chahti H Meri Aankhe<br>Kyu Khamoshiya Krti Hai Bs Teri Baatein,<br>Kyu Itna Chahane Laga Hoon Tujhko Main<br>Ki Taare Ginte Huye Kat-Ti Hai Meri Raatein`,
+`Agar Bhule Se Kabi Hamari Yaad Aati Ho..<br>Aur Tan Badan Me Ek Siharan Si Daud Jaati Ho..<br>To Mere Sanam Tum Mere Paas Chale Aana..<br>Agar Sooni Sooni Raate Tumhe Bahut Sataati Ho`
+];
+
+let index=0;
+const wrapper=document.getElementById("shayariWrapper");
+
+function showShayari(){
+    const old=wrapper.querySelector(".shayari");
+    if(old){
+        old.classList.add("exit-left");
+        setTimeout(()=>old.remove(),600);
+    }
+    const div=document.createElement("div");
+    div.className="shayari enter-right";
+    div.innerHTML=shayariList[index];
+    wrapper.appendChild(div);
+}
+
+yes.onclick=()=>{
+    ask.style.display="none";
+    success.style.display="block";
+    card.classList.add("active");
+    thankyou.textContent=thankQuotes[Math.floor(Math.random()*thankQuotes.length)];
+    showShayari();
+};
+
+next.onclick=()=>{
+    index=(index+1)%shayariList.length;
+    showShayari();
+};
+
+no.onclick=()=>{
+    msg.textContent="Think once more 😢";
+    no.style.left=Math.random()*(wrap.offsetWidth-100)+"px";
+};
+</script>
+
+</body>
+</html>
